@@ -1,0 +1,17 @@
+export CLICOLOR=1
+
+function __git_psq()
+{
+    local b="$(git symbolic-ref HEAD 2>/dev/null)";
+    if [ -n "$b" ]; then
+        printf " (%s)" "${b##refs/heads/}";
+    fi
+}
+
+RESET="\[\033[00m\]"
+C32="\[\033[00;32m\]"
+C34="\[\033[00;34m\]"
+
+PS1="\$(__git_ps1 | tr -d ' ')${C32}\u@\h:${C34}\w${RESET} \$ "
+
+if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
